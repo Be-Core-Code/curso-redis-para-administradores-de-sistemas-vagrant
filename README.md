@@ -70,7 +70,8 @@ single_node > vagrant ssh nodea | nodeb | nodec
 El `box` utilizado en todos los casos es 
 [`becorecode/alpinelinux-3.11`](https://app.vagrantup.com/becorecode/boxes/alpinelinux-3.11).
 Este box se distribuye con dos `providers`: virtualbox y vmware_fusion. Si prefieres ejecutar
-las máquinas virtuales en VMWare, sustituye `--provider virtualbox` en los comandos anteriores.
+las máquinas virtuales en VMWare, sustituye `--provider virtualbox` por `--provider vmsare_fusion` 
+en los comandos anteriores.
 
 # Sobre Vagrant
 
