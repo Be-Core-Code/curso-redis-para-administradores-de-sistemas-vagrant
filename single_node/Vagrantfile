@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# you're doing.
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "becorecode/alpinelinux-3.11"
+  config.vm.box_version = "1.0.0"
+  config.ssh.shell = "/bin/ash"
+  
+  config.vm.provider "vmware_fusion" do |v|
+    v.clone_directory = "/Volumes/Fast Ext Disk/curso_redis/vagrant/single_node"
+  end
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provision "shell", inline: <<-SHELL
+    apk add bvi util-linux terminus-font git redis nodejs npm bash python3 
+    git clone https://github.com/SaminOz/redis-random-data-generator /usr/local/redis-random-data-generator
+    git clone https://github.com/Be-Core-Code/curso-redis-para-administradores-de-sistemas /usr/local/curso-redis-para-administradores-de-sistemas
+  SHELL
+end
