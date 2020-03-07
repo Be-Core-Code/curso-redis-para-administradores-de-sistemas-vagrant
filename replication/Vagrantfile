@@ -8,6 +8,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "vmware_fusion" do |v|
     v.clone_directory = "/Volumes/Fast Ext Disk/curso_redis/vagrant/replication"
+    v.memory = 2500
+  end
+  
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2500
   end
 
   config.vm.define "master" do |master|
@@ -16,6 +21,12 @@ Vagrant.configure("2") do |config|
       echo "Setting hostname to master"
       echo "master" > /etc/hostname
       hostname -F /etc/hostname
+      echo "Install iproute2"
+      # Para disponer del comando tc 
+      apk add iproute2
+      echo "Install fake2db"
+      pip3 install --upgrade pip
+      pip3 install redis fake2db
     SHELL
   end
 
@@ -39,6 +50,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   config.vm.provision "shell", inline: <<-SHELL
+    rm -rf /usr/local/redis-random-data-generator /usr/local/curso-redis-para-administradores-de-sistemas
     apk add bvi util-linux terminus-font git redis nodejs npm bash python3 
     git clone https://github.com/SaminOz/redis-random-data-generator /usr/local/redis-random-data-generator
     git clone https://github.com/Be-Core-Code/curso-redis-para-administradores-de-sistemas /usr/local/curso-redis-para-administradores-de-sistemas
