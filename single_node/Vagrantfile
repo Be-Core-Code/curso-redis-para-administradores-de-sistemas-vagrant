@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   config.vm.provision "shell", inline: <<-SHELL
+    rm -rf /usr/local/redis-random-data-generator /usr/local/curso-redis-para-administradores-de-sistemas
     apk add bvi util-linux terminus-font git redis nodejs npm bash python3 
     git clone https://github.com/SaminOz/redis-random-data-generator /usr/local/redis-random-data-generator
     git clone https://github.com/Be-Core-Code/curso-redis-para-administradores-de-sistemas /usr/local/curso-redis-para-administradores-de-sistemas
